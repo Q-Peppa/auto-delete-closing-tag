@@ -1,37 +1,5 @@
 const vscode = require("vscode");
-/**
- *
- * @param {string} text
- * @param {number} offset
- * @param {string} tagName
- */
-function findClosingTagAfterCursor(text, offset, tagName) {
-  const stack = [];
-  const openRegex = new RegExp(
-    `<(${tagName})[^>]*>|<([a-z][a-z0-9]*)[^>]*>`,
-    "gi"
-  );
-  const closeRegex = new RegExp(`<\\/(${tagName}|[a-z][a-z0-9]*)\\s*>`, "gi");
-  let index = offset;
-  while (true) {
-    const nextClose = closeRegex.exec(text.substring(index));
-    if (!nextClose) return null;
-    const closePos = index + nextClose.index;
-    const closeTag = nextClose[1].toLowerCase();
-    // 检查之间是否有同类型开标签
-    let hasMatchingOpen = false;
-    openRegex.lastIndex = offset;
-    let openMatch;
-    while ((openMatch = openRegex.exec(text.substring(offset, closePos)))) {
-      const currentTag = (openMatch[1] || openMatch[2]).toLowerCase();
-      if (currentTag === closeTag) hasMatchingOpen = true;
-    }
-    if (closeTag === tagName.toLowerCase() && !hasMatchingOpen) {
-      return { start: closePos, end: closePos + nextClose[0].length };
-    }
-    index = closePos + 1;
-  }
-}
+
 /**
  *
  * @param {vscode.TextDocument} document
