@@ -1,0 +1,53 @@
+{
+  "name": "auto-delete-closing-tag",
+  "displayName": "auto-delete-closing-tag",
+  "description": "Auto delete tag when is closing ~ ",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.100.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:html",
+    "onLanguage:javascriptreact",
+    "onLanguage:typescriptreact"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+      "languages": [
+        {
+          "id": "html",
+          "extensions": [
+            ".html", ".htm"
+          ]
+        },
+        {
+          "id": "javascriptreact",
+          "extensions": [
+            ".jsx"
+          ]
+        },
+        {
+          "id": "typescriptreact",
+          "extensions": [
+            ".tsx"
+          ]
+        }
+      ]
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "pnpm run lint",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.100.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "eslint": "^9.25.1",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.5.2"
+  }
+}
